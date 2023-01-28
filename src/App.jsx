@@ -1,3 +1,8 @@
 export default function App() {
-  return <h1 className='text-3xl font-bold underline'>App</h1>;
+  return (
+    <div className='bg-purple-500'>
+      <h1 className='text-3xl font-bold'>App</h1>
+      <button className='btn'>Click</button>
+    </div>
+  );
 }
