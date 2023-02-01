@@ -1,3 +1,10 @@
+import UserList from '../components/users/UserList';
+
 export default function Home() {
-  return <h1 className='text-6xl'>Welcome</h1>;
+  return (
+    <>
+      {/* Search Component goes here */}
+      <UserList />
+    </>
+  );
 }
