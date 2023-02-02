@@ -5,15 +5,22 @@ AlertContext;
 
 export default function UserSearch() {
   const [text, setText] = useState('');
-  const { users, searchUsers } = useContext(GithubContext);
+  const { users, searchUsers, dispatch } = useContext(GithubContext);
   const { setAlert } = useContext(AlertContext);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (text === '') {
-      setAlert('Please enter something', 'error');
+      setAlert('Please enter github username', 'error');
     } else {
-      searchUsers(text);
+      dispatch({
+        type: 'SET_LOADING',
+      });
+      const users = await searchUsers(text);
+      dispatch({
+        type: 'GET_USERS',
+        payload: users,
+      });
       setText('');
     }
   };
@@ -40,7 +47,16 @@ export default function UserSearch() {
       </div>
       {users.length > 0 && (
         <div>
-          <button className='btn btn-ghost btn-lg'>Clear</button>
+          <button
+            onClick={() =>
+              dispatch({
+                type: 'CLEAR_USERS',
+              })
+            }
+            className='btn btn-ghost btn-lg'
+          >
+            Clear
+          </button>
         </div>
       )}
     </div>

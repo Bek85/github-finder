@@ -3,14 +3,22 @@ import { useParams, Link } from 'react-router-dom';
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
 import GithubContext from '../context/github/GithubContext';
 import Spinner from '../components/layout/Spinner';
+import RepoList from '../components/repos/RepoList';
 
 export default function User() {
-  const { getUser, user, loading } = useContext(GithubContext);
+  const { getUserAndRepos, user, dispatch, loading, repos } =
+    useContext(GithubContext);
   const { username } = useParams();
 
   useEffect(() => {
-    getUser(username);
-  }, []);
+    dispatch({ type: 'SET_LOADING' });
+    const getUserData = async () => {
+      const userData = await getUserAndRepos(username);
+      dispatch({ type: 'GET_USER_AND_REPOS', payload: userData });
+    };
+
+    getUserData();
+  }, [dispatch, username]);
 
   const {
     name,
@@ -40,7 +48,7 @@ export default function User() {
       <div className='w-full mx-auto lg:w-10/12'>
         <div className='mb-4'>
           <Link to='/' className='btn btn-ghost'>
-            Back To Searc h
+            Back To Search
           </Link>
         </div>
 
@@ -157,6 +165,7 @@ export default function User() {
             </div>
           </div>
         </div>
+        <RepoList repos={repos} />
       </div>
     </>
   );
