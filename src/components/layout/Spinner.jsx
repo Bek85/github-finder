@@ -4,7 +4,7 @@ export default function Spinner() {
       <img
         width={180}
         className='text-center mx-auto'
-        src='./spinner.gif'
+        src='/spinner.gif'
         alt='Loading...'
       />
     </div>
