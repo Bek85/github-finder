@@ -9,6 +9,7 @@ import NotFound from './pages/NotFound';
 import { GithubProvider } from './context/github/GithubContext';
 import { AlertProvider } from './context/alert/AlertContext';
 import Alert from './components/layout/Alert';
+import User from './pages/User';
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ export default function App() {
                 <Routes>
                   <Route path='/' element={<Home />} />
                   <Route path='/about' element={<About />} />
+                  <Route path='/user/:username' element={<User />} />
                   <Route path='/*' element={<NotFound />} />
                 </Routes>
               </main>
